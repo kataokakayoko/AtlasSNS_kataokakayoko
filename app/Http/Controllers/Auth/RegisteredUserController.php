@@ -31,9 +31,9 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-        'username' => 'required|string|max:255|unique:users',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        'username' => 'required|string|min:2|max:12|unique:users',
+        'email' => 'required|string|email|min:5|max:40|unique:users',
+        'password' => ['required','alpha_num','min:8','max:20','confirmed'],
     ]);
 
     $user = User::create([
@@ -44,11 +44,12 @@ class RegisteredUserController extends Controller
 
         $request->session()->put('registered_user', $user);
 
-        return redirect('added');
+        return redirect()->route('register.added');
     }
 
-    public function added(): View
+    public function added()
     {
-        return view('auth.added');
+    return view('auth.added'); // 例: resources/views/auth/added.blade.php
     }
+
 }
