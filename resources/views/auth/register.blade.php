@@ -1,7 +1,9 @@
 <x-logout-layout>
     <!-- 適切なURLを入力してください -->
-{!! Form::open(['route' => 'register']) !!}
+{!! Form::open(['url' => 'register', 'method' => 'post']) !!}
 
+
+@csrf
 <h2>新規ユーザー登録</h2>
 
 {{ Form::label('ユーザー名') }}

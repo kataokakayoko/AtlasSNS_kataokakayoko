@@ -7,7 +7,9 @@
                 </div>
                 <ul>
                     <li><a href="{{ route('top') }}">ホーム</a></li>
+                    @if (Route::has('profile'))
                     <li><a href="{{ route('profile') }}">プロフィール</a></li>
+                    @endif
                     <li><form action="{{ route('logout') }}" method="POST" style="display:inline;">
                     @csrf
                     <button type="submit" style="background:none;border:none;padding:0;color:#00f;cursor:pointer;">ログアウト</button></form>

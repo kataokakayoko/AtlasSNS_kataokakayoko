@@ -49,7 +49,10 @@ class RegisteredUserController extends Controller
 
     public function added()
     {
-    return view('auth.added'); // 例: resources/views/auth/added.blade.php
+        $user = session('registered_user'); // セッションから登録したユーザーを取得
+        $username = $user->username; // ユーザー名を取得
+
+        return view('auth.added', compact('username')); // ビューに渡す
     }
 
 }
