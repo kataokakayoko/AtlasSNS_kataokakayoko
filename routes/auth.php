@@ -33,6 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', function () {Auth::logout();return redirect('/login');})->name('logout');
 });
 
+Route::middleware(['check.login'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+});
+
 
 // Route::get('/test-profile', function () {
 //     return route('profile');
