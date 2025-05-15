@@ -24,7 +24,9 @@
     </head>
     <body>
         <header>
+        <a href="{{ route('top') }}">
             <h1><img src="images/atlas.png"></h1>
+        </a>
             <p>Social Network Service</p>
         </header>
         <div id="container">

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -26,17 +28,29 @@ Route::middleware('guest')->group(function () {
 
 });
 
+// ミドルウェアを適用
 Route::middleware('auth')->group(function () {
+    // トップページ
     Route::get('/', [PostsController::class, 'index'])->name('top');
-    Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
+
+    // プロフィールページ
+    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+
+    // ユーザー検索ページ
+    Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
+
+    // フォローリストページ
+    Route::get('/follows', [FollowsController::class, 'followList'])->name('follows.list');
+
+    // フォロワーリストページ
+    Route::get('/followers', [FollowsController::class, 'followerList'])->name('followers.list');
+
+    // 相手ユーザーのプロフィールページ
+    Route::get('/user/{id}', [UsersController::class, 'show'])->name('user.profile');
+
+    // ログアウト処理
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-    Route::post('/logout', function () {Auth::logout();return redirect('/login');})->name('logout');
 });
-
-Route::middleware(['check.login'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index']);
-});
-
 
 // Route::get('/test-profile', function () {
 //     return route('profile');
