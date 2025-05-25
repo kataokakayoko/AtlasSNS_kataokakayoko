@@ -42,7 +42,23 @@
 }, function (t, e) { t.exports = function (t) { return t.webpackPolyfill || (t.deprecate = function () { }, t.paths = [], t.children || (t.children = []), Object.defineProperty(t, "loaded", { enumerable: !0, get: function () { return t.l } }), Object.defineProperty(t, "id", { enumerable: !0, get: function () { return t.i } }), t.webpackPolyfill = 1), t } }, function (t, e, n) { n(8), t.exports = n(9) }]);
 
 // 追加
-$('.menu-btn').click(function () {
-  $(this).toggleClass('is-open');
-  $(this).siblings('.menu').toggleClass('is-open');
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.getElementById("menuToggle");
+  const menu = document.querySelector(".menu");
+
+  if (toggle && menu) {
+    toggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      const isOpen = menu.style.display === "block";
+      menu.style.display = isOpen ? "none" : "block";
+      toggle.classList.toggle("open", !isOpen);
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!toggle.contains(e.target)) {
+        menu.style.display = "none";
+        toggle.classList.remove("open");
+      }
+    });
+  }
 });

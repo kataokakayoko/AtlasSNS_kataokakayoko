@@ -14,26 +14,22 @@
         <link rel="stylesheet" href="{{ asset('css/logout.css') }} ">
         <!--スマホ,タブレット対応-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--サイトのアイコン指定-->
-        <link rel="icon" href="画像URL" sizes="16x16" type="image/png" />
-        <link rel="icon" href="画像URL" sizes="32x32" type="image/png" />
-        <link rel="icon" href="画像URL" sizes="48x48" type="image/png" />
-        <link rel="icon" href="画像URL" sizes="62x62" type="image/png" />
-        <!--iphoneのアプリアイコン指定-->
-        <link rel="apple-touch-icon-precomposed" href="画像のURL" />
+
     </head>
     <body>
-        <header>
-        <a href="{{ route('top') }}">
-            <h1><img src="images/atlas.png"></h1>
-        </a>
-            <p>Social Network Service</p>
-        </header>
+    <div class="wrapper">
+    <header class="login-header">
+      <a href="{{ route('top') }}">
+        <img src="{{ asset('images/atlas.png') }}" alt="Atlasロゴ" class="logo-img" />
+      </a>
+      <p class="logo-subtitle">Social Network Service</p>
+    </header>
         <div id="container">
             {{ $slot }}
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="{{ asset('js/app.js') }}"></script>
-        <!-- <script src="JavaScriptファイルのURL"></script>
-        <script src="JavaScriptファイルのURL"></script> -->
+
     </body>
 </html>

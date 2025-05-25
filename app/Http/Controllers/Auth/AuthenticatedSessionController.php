@@ -30,6 +30,17 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         return redirect()->intended('top');
+        return redirect()->intended(route('top'));
+    }
+
+    public function destroy(Request $request)
+    {
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 
 }

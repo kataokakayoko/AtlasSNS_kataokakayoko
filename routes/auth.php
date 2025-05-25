@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [PostsController::class, 'index'])->name('top');
 
     // プロフィールページ
-    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('/users/profile', [ProfileController::class, 'profile'])->name('profile');
 
     // ユーザー検索ページ
     Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
@@ -50,8 +50,19 @@ Route::middleware('auth')->group(function () {
 
     // ログアウト処理
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-});
 
-// Route::get('/test-profile', function () {
-//     return route('profile');
-// });
+    // ユーザー検索ページ
+    Route::get('/users/search', [UsersController::class, 'search'])->name('user.search');
+
+    // 投稿
+    Route::post('/posts', [PostsController::class, 'store'])->name('posts.store');
+
+    // 投稿編集
+    Route::put('/posts/{post}', [PostsController::class, 'update'])->name('posts.update');
+
+    // 投稿削除
+    Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->name('posts.destroy');
+    Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
+
+
+});

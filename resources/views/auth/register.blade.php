@@ -1,28 +1,51 @@
 <x-logout-layout>
     <!-- 適切なURLを入力してください -->
-{!! Form::open(['url' => 'register', 'method' => 'post']) !!}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
+    <div class="login-container">
+        {{-- エラーメッセージ --}}
+        @if ($errors->any())
+            <div class="error-message">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li style="color:red;">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-@csrf
-<h2>新規ユーザー登録</h2>
+        {{-- 新規登録フォーム --}}
+        {!! Form::open(['url' => 'register', 'method' => 'post']) !!}
+        @csrf
 
-{{ Form::label('ユーザー名') }}
-{{ Form::text('username',null,['class' => 'input']) }}
+        <p class="login-title">新規ユーザー登録</p>
 
-{{ Form::label('メールアドレス') }}
-{{ Form::email('email',null,['class' => 'input']) }}
+        <div class="input-group">
+            {{ Form::label('username', 'ユーザー名') }}
+            {{ Form::text('username', null, ['class' => 'input']) }}
+        </div>
 
-{{ Form::label('パスワード') }}
-{{ Form::password('password',null,['class' => 'input']) }}
+        <div class="input-group">
+            {{ Form::label('email', 'メールアドレス') }}
+            {{ Form::email('email', null, ['class' => 'input']) }}
+        </div>
 
-{{ Form::label('パスワード確認') }}
-{{ Form::password('password_confirmation',null,['class' => 'input']) }}
+        <div class="input-group">
+            {{ Form::label('password', 'パスワード') }}
+            {{ Form::password('password', ['class' => 'input']) }}
+        </div>
 
-{{ Form::submit('登録') }}
+        <div class="input-group">
+            {{ Form::label('password_confirmation', 'パスワード確認') }}
+            {{ Form::password('password_confirmation', ['class' => 'input']) }}
+        </div>
 
-<p class="btn"><a href="{{ route('login') }}">ログイン画面へ戻る</a></p>
+        <div class="button-wrapper">
+            {{ Form::submit('新規登録', ['class' => 'login-btn']) }}
+        </div>
 
-{!! Form::close() !!}
+        <p><a href="{{ route('login') }}" class="register-link">ログイン画面へ戻る</a></p>
 
-
+        {!! Form::close() !!}
+    </div>
 </x-logout-layout>
