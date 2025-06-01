@@ -15,4 +15,25 @@ class ProfileController extends Controller
         return view('profiles.profile');
     }
 
+    public function update(Request $request): RedirectResponse
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048'
+        ]);
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+
+            $fileName = $user->id . '_' . time() . '.' . $avatar->getClientOriginalExtension();
+
+            $avatar->move(public_path('images'), $fileName);
+
+            $user->avatar = $fileName;
+            $user->save();
+        }
+
+        return redirect()->route('profile')->with('success', 'プロフィール画像を更新しました！');
+    }
 }

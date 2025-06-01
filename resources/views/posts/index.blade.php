@@ -1,9 +1,13 @@
 <x-login-layout>
+<div id="main-content" style="display: flex;">
+<div class="main-content" style="flex: 1;">
+
   <div class="post-form-container">
     <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="post-form">
       @csrf
       <div class="user-icon">
-        <img src="{{ asset('images/icon1.png') }}" alt="ユーザーアイコン" />
+      <img src="{{ asset('images/' . Auth::user()->avatar) }}" alt="ユーザーアイコン" />
+
       </div>
       <textarea name="content" placeholder="投稿内容を入力してください。" class="post-input" required></textarea>
       <button type="submit" class="post-btn">
@@ -14,30 +18,27 @@
 
   <div class="post-list">
   @forelse ($posts as $post)
-    <div class="post-item">
-      <div class="user-icon">
-        <img src="{{ asset('images/icon1.png') }}" alt="ユーザーアイコン" />
-      </div>
-
-      <div class="post-content-container">
-        <div class="post-header">
-          <div class="post-username">{{ $post->user->username }}</div>
-          <div class="post-date">{{ $post->created_at->format('Y-m-d H:i') }}</div>
-        </div>
-        <div class="post-content">{{ $post->content }}</div>
-
-        @if ($post->user_id === auth()->id())
-  <div class="post-action-buttons d-flex align-items-center gap-2 mt-2">
-    <!-- 編集ボタン -->
-    <button type="button" class="edit-btn" data-bs-toggle="modal" data-bs-target="#editModal{{ $post->id }}">
-      <img src="{{ asset('images/edit.png') }}" alt="編集" />
-    </button>
-
-    <!-- 削除ボタン -->
-    <button type="button" class="delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $post->id }}">
-      <img src="{{ asset('images/trash.png') }}" alt="削除" />
-    </button>
+  <div class="post-item">
+  <div class="post-header d-flex align-items-center mb-2">
+    <div class="user-icon">
+    <img src="{{ asset('images/' . ($post->user->avatar ?? 'default_icon.png')) }}" alt="{{ $post->user->username }}のアイコン" class="w-8 h-8 rounded-full" />
+    </div>
+    <div class="post-username">{{ $post->user->username }}</div>
+    <div class="post-date ms-auto text-muted" style="font-size: 0.8em;">{{ $post->created_at->format('Y-m-d H:i') }}</div>
   </div>
+  <div class="post-content">{{ $post->content }}</div>
+
+  @if ($post->user_id === auth()->id())
+    <div class="post-action-buttons d-flex align-items-center gap-2 mt-2">
+      <button type="button" class="edit-btn" data-bs-toggle="modal" data-bs-target="#editModal{{ $post->id }}">
+        <img src="{{ asset('images/edit.png') }}" alt="編集" />
+      </button>
+      <button type="button" class="delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $post->id }}">
+        <img src="{{ asset('images/trash.png') }}" alt="削除" />
+      </button>
+    </div>
+</div>
+
 
   <!-- 編集モーダル -->
   @if ($post->user_id === auth()->id())

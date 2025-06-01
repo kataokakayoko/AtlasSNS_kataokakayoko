@@ -10,7 +10,7 @@
     <div class="user-info" id="menuToggle">
       <span class="username">{{ Auth::user()->username }} さん</span>
       <span class="arrow"></span>
-      <img src="{{ asset('images/icon1.png') }}" alt="アイコン" class="user-icon">
+      <img src="{{ asset('images/' . Auth::user()->avatar) }}" alt="アイコン" class="user-icon">
     </div>
 
     <!-- アコーディオンメニュー -->

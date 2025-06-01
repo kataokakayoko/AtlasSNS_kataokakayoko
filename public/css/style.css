@@ -7,10 +7,6 @@ body {
     flex-direction: column;
 }
 
-/* header */
-header {
-    background: #186AC9;
-}
 
 .bg-primary {
     background-color: #186AC9 !important;
@@ -18,30 +14,42 @@ header {
 
 #main-content {
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border-top: 1px solid #ddd;
 }
 
 #container {
     flex: 1;
     min-width: 0;
+    margin-right: 250px;
+    position: relative;
+    box-sizing: border-box;
 }
 
 /* サイドバー */
 #side-bar {
-    width: 300px;
-    flex-shrink: 0;
+    position: fixed;
+    top: 80px;
+    right: 0;
+    width: 250px;
+    height: calc(100% - 60px);
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-left: 1px solid #ddd;
+    overflow-y: auto;
+    background-color: #ffffff !important;
 }
 
 /* TOP画面 */
 .container {
-    display: flex;
-    justify-content: space-between;
+    display: block;
     padding: 20px;
 }
 
 .main-content {
-    width: 70%;
+    min-width: 0;
+    flex-wrap: nowrap;
 }
 
 .sidebar {
@@ -49,13 +57,14 @@ header {
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
+    flex-shrink: 0;
 }
 
 /* ボタン */
 .btn {
     display: block;
-    width: 100%;
-    margin: 10px 0;
+    width: 50%;
+    margin: 10px 0 10px auto;
     padding: 10px;
     background-color: #007bff;
     border: none;
@@ -73,6 +82,44 @@ header {
     background-color: #0056b3;
 }
 
+#confirm p.btn.btn-secondary {
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.sidebar-btn {
+    width: 50%;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.sidebar-btn-primary {
+    background-color: #007bff;
+}
+
+.sidebar-btn-secondary {
+    background-color: #6c757d;
+}
+
+.sidebar-btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.sidebar-btn-secondary:hover {
+    background-color: #545b62;
+}
+
+.label-fixed-width {
+    width: 120px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
+
 /* ヘッダー */
 .username {
     color: white !important;
@@ -88,9 +135,17 @@ header {
     font-size: 18px;
 }
 
+header#head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 0 20px;
+    background: #186AC9;
+}
+
 #logo {
-    padding-top: 30px;
-    margin-left: 20px;
+    margin: 0;
 }
 
 .logo {
@@ -102,9 +157,13 @@ header {
 .user-info {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    height: 100%;
     gap: 8px;
+}
+
+#user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .user-name {
@@ -142,12 +201,12 @@ header {
     transform: rotate(45deg);
 }
 
-#menuToggle.open .arrow {
-    transform: rotate(-135deg);
+.menu.open {
+    display: block;
 }
 
-#user-menu {
-    position: relative;
+#menuToggle.open .arrow {
+    transform: rotate(-135deg);
 }
 
 .menu {
@@ -232,21 +291,46 @@ header {
 
 }
 
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.post-username {
+    font-weight: bold;
+}
+
+.post-date {
+    margin-left: auto;
+    font-size: 0.8em;
+    color: #888;
+}
+
 /* リスト */
 .post-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 0px;
+    padding-right: 0;
 }
 
 .post-item {
-    display: block;
-    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
-    border-radius: 8px;
-    background: #fff;
     position: relative;
+    background-color: #fff !important;
+    border-bottom: 1px solid #ddd;
+}
+
+.post-item,
+.post-content {
+    max-width: 100%;
+    overflow-wrap: break-word;
 }
 
 .post-content-container {
@@ -263,6 +347,10 @@ header {
 
 .post-content {
     margin-bottom: 5px;
+    word-break: break-word;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 .post-date {
@@ -327,9 +415,7 @@ header {
 .post-action-buttons {
     display: flex;
     justify-content: flex-end;
-    /* ← 右寄せ */
     align-items: center;
     gap: 0.5rem;
-    /* 間隔を確保 */
     margin-top: 8px;
 }
