@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostsController;
-use App\Http\Controllers\UserController;
 
 Route::middleware('guest')->group(function () {
     // ログイン関連
@@ -26,7 +25,6 @@ Route::middleware('guest')->group(function () {
     Route::post('added', [RegisteredUserController::class, 'added'])->name('register.added');
     // ユーザー登録完了後のページ表示
     Route::get('register-success', [RegisteredUserController::class, 'registerSuccess'])->name('register.success');
-
 });
 
 // ミドルウェアを適用
@@ -39,6 +37,8 @@ Route::middleware('auth')->group(function () {
 
     // フォローリストページ
     Route::get('/follows', [FollowsController::class, 'followList'])->name('follows.list');
+    // フォロー中ユーザーの投稿一覧
+    Route::get('/follows/posts', [FollowsController::class, 'followingPosts'])->name('follows.posts');
 
     // フォロワーリストページ
     Route::get('/followers', [FollowsController::class, 'followerList'])->name('followers.list');
@@ -50,9 +50,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
     // ユーザー検索ページ
-    Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
-    Route::post('/users/{user}/follow', [UserController::class, 'follow'])->name('users.follow');
+    Route::get('/users/search_result', [UsersController::class, 'search_result'])->name('users.search_result');
+    Route::get('/follow-list', [UsersController::class, 'followList'])->name('follow.list');
 
+    // フォロー / フォロー解除
+    Route::post('/users/{user}/follow', [FollowsController::class, 'follow'])->name('users.follow');
+    Route::post('/users/{user}/unfollow', [FollowsController::class, 'unfollow'])->name('users.unfollow');
 
     // 投稿
     Route::post('/posts', [PostsController::class, 'store'])->name('posts.store');
@@ -64,17 +67,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->name('posts.destroy');
     Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
 
-    // フォロー/フォロー解除
-    Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
-    Route::post('/users/{user}/follow', [UsersController::class, 'follow'])->name('users.follow');
-    Route::post('/users/{user}/unfollow', [UsersController::class, 'unfollow'])->name('users.unfollow');
-
-    // アイコン
+    // プロフィール編集関連
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-
-    // プロフィール編集ページ
-    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 });

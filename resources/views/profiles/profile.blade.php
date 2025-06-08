@@ -1,26 +1,33 @@
 <x-login-layout>
-  @if (session('success'))
-    <div class="text-green-500">{{ session('success') }}</div>
-  @endif
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
-  <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
-    @csrf
-    <div>
-      <label for="avatar">プロフィール画像</label><br>
-      <input type="file" name="avatar" id="avatar">
-      @error('avatar')
-        <div class="text-red-500">{{ $message }}</div>
-      @enderror
+<div class="profile-container">
+  <div class="profile-left">
+    <div class="icon-row">
+      @if(Auth::user()->image)
+        <img src="{{ asset('images/' . Auth::user()->image) }}" alt="アイコン" class="icon-image">
+      @else
+        <div class="icon-placeholder"></div>
+      @endif
+      <label class="label-text">ユーザー名</label>
     </div>
-    <button type="submit" class="bg-blue-500 text-white px-4 py-1 rounded">更新</button>
-  </form>
-
-  <div class="mt-4">
-    <p>現在のアイコン:</p>
-    @if(Auth::user()->avatar)
-      <img src="{{ asset('images/' . Auth::user()->avatar) }}" alt="現在のアイコン" class="w-20 h-20 rounded-full">
-    @else
-      <p>アイコン未設定</p>
-    @endif
+    <label class="label-text">メールアドレス</label>
+    <label class="label-text">パスワード</label>
+    <label class="label-text">パスワード確認</label>
+    <label class="label-text">自己紹介</label>
+    <label class="label-text">アイコン画像</label>
+    <div class="empty-label"></div>
   </div>
+
+  <div class="profile-right">
+    <input type="text" name="username" value="{{ old('username', Auth::user()->username) }}" class="input-field">
+    <input type="email" name="mail" value="{{ old('mail', Auth::user()->mail) }}" class="input-field">
+    <input type="password" name="password" class="input-field">
+    <input type="password" name="password_confirmation" class="input-field">
+    <textarea name="profile" rows="4" class="input-field">{{ old('profile', Auth::user()->bio) }}</textarea>
+    <input type="file" name="image" class="input-field">
+    <button type="submit" class="submit-button">更新</button>
+  </div>
+</div>
+
 </x-login-layout>

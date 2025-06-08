@@ -4,28 +4,60 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
+use App\Models\User;
 
 class FollowsController extends Controller
 {
-    // フォローしているユーザーのリストを表示
     public function followList()
     {
         $user = Auth::user();
 
-    // ログイン中のユーザーがフォローしているユーザーを取得
-        $followingUsers = $user->following()->get();
+        $followingUsers = $user->followings()->get();
 
-        return view('follows.followList', compact('followingUsers'));
+        $posts = \App\Models\Post::whereIn('user_id', $followingUsers->pluck('id'))
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('follows.followList', compact('followingUsers', 'posts'));
     }
 
-    // 自分をフォローしているユーザーのリストを表示
     public function followerList()
     {
         $user = Auth::user();
 
-        // ログイン中のユーザーをフォローしているユーザーを取得
         $followers = $user->followers()->get();
 
-        return view('follows.followerList', compact('followers'));
+        $posts = Post::whereIn('user_id', $followers->pluck('id'))
+        ->with('user')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return view('follows.followerList', compact('followers', 'posts'));
+    }
+
+    public function followingsPosts()
+    {
+    $user = Auth::user();
+
+    $posts = Post::whereIn('user_id', $user->following()->pluck('followed_id'))
+        ->with('user')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return view('follows.followingsPosts', compact('posts'));
+    }
+
+    public function follow(User $user)
+    {
+    Auth::user()->followings()->attach($user->id);
+    return back();
+    }
+
+public function unfollow(User $user)
+    {
+    Auth::user()->followings()->detach($user->id);
+    return back();
     }
 }

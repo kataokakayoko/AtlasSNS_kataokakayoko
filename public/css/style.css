@@ -316,15 +316,11 @@ header#head {
 }
 
 .post-item {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    position: relative;
-    background-color: #fff !important;
+    gap: 0.5rem;
+    background: #fff;
     border-bottom: 1px solid #ddd;
+    position: relative;
+    border-radius: 0.5rem;
 }
 
 .post-item,
@@ -418,4 +414,172 @@ header#head {
     align-items: center;
     gap: 0.5rem;
     margin-top: 8px;
+}
+
+.follow-list-container h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.follow-icons {
+    background: #fff;
+    width: 100%;
+    padding: 1rem 1rem 1rem 90px;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.follow-icons a {
+    flex: 0 0 40px;
+}
+
+.follow-icons a img {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    border: 1px solid #ddd;
+    transition: transform 0.2s ease;
+    display: block;
+    margin: 10px 0;
+}
+
+.follow-icons a img:hover {
+    transform: scale(1.1);
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.post-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+}
+
+.post-content {
+    flex: 1;
+}
+
+.post-username {
+    font-weight: bold;
+}
+
+.post-text {
+    margin-top: 0.25rem;
+    color: #333;
+}
+
+.post-date {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 0.25rem;
+}
+
+.no-posts {
+    color: #888;
+    text-align: center;
+}
+
+.follow-icons h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+.icon-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.icon-list a img {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    border: 1px solid #ddd;
+    transition: transform 0.2s ease;
+    display: block;
+    margin: 10px 0;
+}
+
+/* プロフィール画面 */
+.profile-container {
+    display: flex;
+    gap: 30px;
+    background-color: #fff;
+    padding: 30px;
+}
+
+.profile-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    width: 200px;
+}
+
+.profile-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1;
+}
+
+.icon-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-image,
+.icon-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #eee;
+}
+
+.label-text {
+    font-weight: bold;
+}
+
+.input-field {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button {
+    width: fit-content;
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.empty-label {
+    height: 40px;
+}
+
+.profile-left label,
+.empty-label,
+.icon-row {
+    display: flex;
+    align-items: center;
+    height: 40px;
 }

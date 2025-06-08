@@ -1,5 +1,5 @@
 <x-logout-layout>
- <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+ <link rel="stylesheet" href="{{ asset('css/logout.css') }}">
 
  <div class="login-container">
  {{-- エラーメッセージ --}}
@@ -19,8 +19,8 @@
  <p class="login-title">AtlasSNSへようこそ</p>
 
  <div class="input-group">
- {{ Form::label('email', 'メールアドレス') }}
- {{ Form::text('email', null, ['class' => 'input']) }}
+ {{ Form::label('mail', 'メールアドレス') }}
+ {{ Form::text('mail', null, ['class' => 'input']) }}
  </div>
 
  <div class="input-group">

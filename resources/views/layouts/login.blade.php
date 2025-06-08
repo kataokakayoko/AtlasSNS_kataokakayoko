@@ -28,29 +28,37 @@
 
     <!-- サイドバー -->
     <aside id="side-bar" class="bg-light p-3">
+      @php
+        $authUser = Auth::user();
+        $followCount = $authUser->followings()->count();
+        $followerCount = $authUser->followers()->count();
+      @endphp
+
       <div id="confirm">
         <div class="profile-box mb-3">
-          <p><strong>{{ Auth::user()->username }}さんの</strong></p>
+          <p><strong>{{ $authUser->username }}さんの</strong></p>
+
           <div class="d-flex align-items-center mb-2">
-          <p class="mb-0 me-2 label-fixed-width">フォロー数</p><p class="mb-0">{{ $followCount ?? '0' }}人</p>
+            <p class="mb-0 me-2 label-fixed-width">フォロー数</p>
+            <p class="mb-0">{{ $followCount }}人</p>
           </div>
           <div class="text-end">
-          <a href="{{ route('follows.list') }}" class="btn btn-primary btn-sm sidebar-btn">フォローリスト</a>
+            <a href="{{ route('follows.list') }}" class="btn btn-primary btn-sm sidebar-btn">フォローリスト</a>
           </div>
 
-          <div>
-          <div class="d-flex align-items-center mb-2">
-          <p class="mb-0 me-2 label-fixed-width">フォロワー数</p><p class="mb-0">{{ $followerCount ?? '0' }}人</p>
+          <div class="d-flex align-items-center mb-2 mt-2">
+            <p class="mb-0 me-2 label-fixed-width">フォロワー数</p>
+            <p class="mb-0">{{ $followerCount }}人</p>
           </div>
           <div class="text-end">
-          <a href="{{ route('followers.list') }}" class="btn btn-primary btn-sm sidebar-btn">フォロワーリスト</a>
+            <a href="{{ route('followers.list') }}" class="btn btn-primary btn-sm sidebar-btn">フォロワーリスト</a>
           </div>
 
           <div class="text-center mt-2">
-          <hr>
-          <a href="{{ route('users.search') }}" class="btn btn-primary btn-sm sidebar-btn">ユーザー検索</a>
+            <hr>
+            <a href="{{ route('users.search_result') }}" class="btn btn-primary btn-sm sidebar-btn">ユーザー検索</a>
           </div>
-
+        </div>
       </div>
     </aside>
   </div>

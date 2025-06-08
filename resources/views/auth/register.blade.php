@@ -1,6 +1,6 @@
 <x-logout-layout>
     <!-- 適切なURLを入力してください -->
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/logout.css') }}">
 
     <div class="login-container">
         {{-- エラーメッセージ --}}
@@ -26,8 +26,8 @@
         </div>
 
         <div class="input-group">
-            {{ Form::label('email', 'メールアドレス') }}
-            {{ Form::email('email', null, ['class' => 'input']) }}
+            {{ Form::label('mail', 'メールアドレス') }}
+            {{ Form::mail('mail', null, ['class' => 'input']) }}
         </div>
 
         <div class="input-group">

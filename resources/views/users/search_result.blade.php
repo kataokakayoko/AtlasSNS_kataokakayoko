@@ -2,7 +2,7 @@
 <div class="container">
 
     <!-- 検索フォーム -->
-    <form action="{{ route('users.search') }}" method="GET" class="d-flex mb-3">
+    <form action="{{ route('users.search_result') }}" method="GET" class="d-flex mb-3">
     <input type="text" name="keyword" placeholder="ユーザー名"
            value="{{ old('keyword', $keyword ?? '') }}"
            class="form-control me-2">
@@ -18,11 +18,11 @@
       @foreach($users as $user)
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-center gap-2">
-            <img src="{{ asset('images/' . ($user->avatar ?? 'default_icon.png')) }}" alt="{{ $user->username }}のアイコン" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+          <img src="{{ asset('images/' . ($user->image ?? 'default_icon.png')) }}" alt="{{ $user->username }}のアイコン" class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
             <span>{{ $user->username }}</span>
           </div>
 
-          @if(auth()->user()->following->contains($user->id))
+          @if(auth()->user()->followings->contains($user->id))
                         <!-- フォロー解除ボタン（赤） -->
                         <form action="{{ route('users.unfollow', $user->id) }}" method="POST" style="display:inline;">
                             @csrf
