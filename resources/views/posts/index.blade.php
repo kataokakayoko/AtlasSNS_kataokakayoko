@@ -1,4 +1,5 @@
 <x-login-layout>
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 <div id="main-post" style="display: flex;">
   <!-- メインエリア -->
   <div class="main-post" style="flex: 1;">
@@ -16,36 +17,34 @@
     </div>
 
     <div class="post-list">
-      @forelse ($posts as $post)
-        <div class="post-item">
-          <div class="post-header d-flex justify-content-between align-items-start mb-2">
-            <div class="d-flex align-items-start gap-2">
-              <div class="user-icon">
-                <img src="{{ asset('images/' . ($post->user->image ?? 'default_icon.png')) }}" alt="{{ $post->user->username }}のアイコン" class="w-8 h-8 rounded-full" />
-              </div>
-              <div class="post-info">
-                <div class="post-username fw-bold">{{ $post->user->username }}</div>
-              </div>
-            </div>
-            <div class="text-muted" style="font-size: 0.8em;">{{ $post->created_at->format('Y-m-d H:i') }}</div>
+  @forelse ($posts as $post)
+    <div class="post-item">
+      <div class="post-header d-flex justify-content-between align-items-start mb-2">
+        <div class="d-flex align-items-start gap-2">
+          <div class="user-icon">
+            <img src="{{ asset('images/' . ($post->user->image ?? 'default_icon.png')) }}" alt="{{ $post->user->username }}のアイコン" class="w-8 h-8 rounded-full" />
+          </div>
+          <div class="post-info">
+            <div class="post-username fw-bold">{{ $post->user->username }}</div>
+          </div>
+        </div>
+        <div class="text-muted" style="font-size: 0.8em;">{{ $post->created_at->format('Y-m-d H:i') }}</div>
+      </div>
+
+      <div class="post-post">{{ $post->post }}</div>
+
+      @auth
+        @if ($post->user_id == auth()->user()->id)
+          <div class="post-action-buttons">
+            <button type="button" class="edit-btn" data-bs-toggle="modal" data-bs-target="#editModal{{ $post->id }}">
+              <img src="{{ asset('images/edit.png') }}" alt="編集" />
+            </button>
+            <button type="button" class="delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $post->id }}">
+              <img src="{{ asset('images/trash.png') }}" alt="削除" />
+            </button>
           </div>
 
-          <div class="post-post">{{ $post->post }}</div>
-
-          @if ($post->user_id === auth()->id())
-            <div class="post-action-buttons d-flex align-items-center gap-2 mt-2">
-              <button type="button" class="edit-btn" data-bs-toggle="modal" data-bs-target="#editModal{{ $post->id }}">
-                <img src="{{ asset('images/edit.png') }}" alt="編集" />
-              </button>
-              <button type="button" class="delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $post->id }}">
-                <img src="{{ asset('images/trash.png') }}" alt="削除" />
-              </button>
-            </div>
-          @endif
-        </div>
-
-        <!-- 編集モーダル -->
-        @if ($post->user_id === auth()->id())
+          <!-- 編集モーダル -->
           <div class="modal fade" id="editModal{{ $post->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $post->id }}" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -67,10 +66,8 @@
               </div>
             </div>
           </div>
-        @endif
 
-        <!-- 削除モーダル -->
-        @if ($post->user_id === auth()->id())
+          <!-- 削除モーダル -->
           <div class="modal fade" id="deleteModal{{ $post->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $post->id }}" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -93,10 +90,11 @@
             </div>
           </div>
         @endif
-      @empty
-        <p>投稿がありません。</p>
-      @endforelse
+      @endauth
     </div>
-  </div>
+  @empty
+    <p>投稿がありません。</p>
+  @endforelse
 </div>
+
 </x-login-layout>

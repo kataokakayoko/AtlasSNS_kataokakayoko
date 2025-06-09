@@ -123,6 +123,8 @@ hr {
 /* ヘッダー */
 .username {
     color: white !important;
+    margin-right: 10px;
+    margin-top: 5px;
 }
 
 .header {
@@ -176,6 +178,7 @@ header#head {
     border-radius: 50%;
     background-color: white;
     margin-right: 5px;
+    margin-top: 15px;
 }
 
 .dropdown-icon {
@@ -199,6 +202,7 @@ header#head {
     border-bottom: 2px solid white !important;
     box-sizing: content-box;
     transform: rotate(45deg);
+    margin-right: 10px;
 }
 
 .menu.open {
@@ -248,8 +252,10 @@ header#head {
     display: flex;
     align-items: center;
     background: #fff;
-    padding: 10px;
+    padding: 20px;
     border-bottom: 1px solid #ddd;
+    padding: 40px;
+    min-height: 100px;
 }
 
 .post-form {
@@ -262,6 +268,7 @@ header#head {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    margin-left: 40px;
 }
 
 .post-input {
@@ -272,8 +279,8 @@ header#head {
     border: 1px solid #ddd;
     outline: none;
     border: none;
-    outline: none;
     resize: none;
+    margin-left: 50px;
 }
 
 .post-btn img {
@@ -307,8 +314,22 @@ header#head {
     color: #888;
 }
 
+.post-info {
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+.post-post {
+    margin-left: 90px;
+    margin-bottom: 10px;
+}
+
 /* リスト */
 .post-list {
+    background: #fff;
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 0px;
@@ -319,8 +340,12 @@ header#head {
     gap: 0.5rem;
     background: #fff;
     border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
     position: relative;
     border-radius: 0.5rem;
+    margin-left: 0;
+    padding-left: 130px;
+    margin-top: 20px;
 }
 
 .post-item,

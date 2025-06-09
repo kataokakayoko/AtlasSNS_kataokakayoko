@@ -40,7 +40,7 @@ class PostsController extends Controller
 
     public function update(Request $request, Post $post)
 {
-    if ($post->user_id !== auth()->id()) {
+    if ($post->user_id !== auth()->user()->id) {
         abort(403, '権限がありません。');
     }
 

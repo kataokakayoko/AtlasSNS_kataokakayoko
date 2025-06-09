@@ -11,7 +11,8 @@
             ? asset('images/' . $user->image)
             : asset('images/default_icon.png') }}"
             alt="{{ $user->username }}のアイコン"
-            class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+            class="rounded-circle"
+            style="width: 40px; height: 40px; object-fit: cover;">
         </a>
       @endforeach
     </div>
@@ -19,17 +20,18 @@
 
   {{-- 投稿一覧 --}}
   @if($posts->count() > 0)
-    <ul>
+    <ul class="post-list">
       @foreach($posts as $post)
-        <li class="post-item">
-          <a href="{{ route('user.profile', ['id' => $post->user->id]) }}">
-          <img src="{{ $post->user->image
-          ? asset('images/' . $post->user->image)
-          : asset('images/default_icon.png') }}"
-          class="rounded-circle"
-          style="width: 40px; height: 40px; object-fit: cover;">
-          </a>
-          <div class="post-content">
+        @if($post->user)
+          <li class="post-item">
+            <a href="{{ route('user.profile', ['id' => $post->user->id]) }}">
+              <img src="{{ $post->user->image
+                ? asset('images/' . $post->user->image)
+                : asset('images/default_icon.png') }}"
+                alt="{{ $post->user->username }}"
+                class="rounded-circle"
+                style="width: 40px; height: 40px; object-fit: cover;">
+            </a>
             <div class="post-username">
               <a href="{{ route('user.profile', ['id' => $post->user->id]) }}">
                 {{ $post->user->username }}
@@ -37,8 +39,8 @@
             </div>
             <div class="post-text">{{ $post->post }}</div>
             <div class="post-date">{{ $post->created_at->format('Y年m月d日 H:i') }}</div>
-          </div>
-        </li>
+          </li>
+        @endif
       @endforeach
     </ul>
   @else
