@@ -45,6 +45,9 @@ body {
 .container {
     display: block;
     padding: 20px;
+    background-color: #ffffff !important;
+    /* padding: 10px 15px;
+    margin-bottom: -1px; */
 }
 
 .main-content {
@@ -253,7 +256,7 @@ header#head {
     align-items: center;
     background: #fff;
     padding: 20px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 5px solid #ddd;
     padding: 40px;
     min-height: 100px;
 }

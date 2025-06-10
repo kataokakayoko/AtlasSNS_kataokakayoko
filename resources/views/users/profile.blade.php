@@ -8,7 +8,6 @@
            alt="{{ $user->username }}" class="user-icon">
     </div>
 
-    {{-- ユーザー情報（2列構成） --}}
     <div class="profile-info">
       <div class="profile-row">
         <div class="profile-label">ユーザー名</div>

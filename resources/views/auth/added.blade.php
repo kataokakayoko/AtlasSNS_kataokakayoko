@@ -1,4 +1,5 @@
 <x-logout-layout>
+<link rel="stylesheet" href="{{ asset('css/logout.css') }}">
   <div class="login-container">
     <p class="welcome-username">{{ $username }}さん</p>
     <p class="welcome-username">ようこそ！AtlasSNSへ！</p>

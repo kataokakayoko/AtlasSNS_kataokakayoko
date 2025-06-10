@@ -46,26 +46,30 @@
 
           <!-- 編集モーダル -->
           <div class="modal fade" id="editModal{{ $post->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $post->id }}" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <form action="{{ route('posts.update', $post) }}" method="POST">
-                  @csrf
-                  @method('PUT')
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel{{ $post->id }}">投稿を編集</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-                  </div>
-                  <div class="modal-body">
-                    <textarea name="post" required minlength="1" maxlength="150">{{ $post->post }}</textarea>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                    <button type="submit" class="btn btn-primary">保存</button>
-                  </div>
-                </form>
-              </div>
-            </div>
+          <div class="modal-dialog" style=" position: fixed; top: 40%; left: 50%; transform: translate(-50%, -50%); width: 1000px; max-width: 95%; z-index: 1050;">
+          <div class="modal-content">
+          <form action="{{ route('posts.update', $post) }}" method="POST">
+          @csrf
+           @method('PUT')
+          <div class="modal-body text-center py-4">
+          <textarea name="post" required minlength="1" maxlength="150" class="form-control mb-4" style="min-height: 200px; font-size: 1.2rem;">{{ trim($post->post) }}</textarea>
+
+          <!-- 編集ボタン画像 -->
+          <button type="submit" class="border-0 bg-transparent p-0">
+            <img
+              src="{{ asset('images/edit.png') }}"
+              alt="編集ボタン"
+              style="width: 60px; height: auto;"
+              onmouseover="this.src='{{ asset('images/edit_h.png') }}';"
+              onmouseout="this.src='{{ asset('images/edit.png') }}';"
+            />
+            </button>
           </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 
           <!-- 削除モーダル -->
           <div class="modal fade" id="deleteModal{{ $post->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $post->id }}" aria-hidden="true">
@@ -82,8 +86,13 @@
                     この投稿を削除します。よろしいですか？
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                    <button type="submit" class="btn btn-danger">OK</button>
+                  <button type="button"
+                  class="btn bg-white text-dark border border-dark" data-bs-dismiss="modal">
+                  キャンセル
+                  </button>
+                  <button type="submit" class="btn text-white" style="background-color: #66b0ff; border: none;">
+                  OK
+                  </button>
                   </div>
                 </form>
               </div>
