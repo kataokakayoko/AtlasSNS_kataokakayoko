@@ -11,11 +11,11 @@ class FollowsController extends Controller
 {
     public function followList()
     {
-        $user = Auth::user();
+        $user = Auth::user()->fresh(); // 最新情報を取得
 
         $followingUsers = $user->followings()->get();
 
-        $posts = \App\Models\Post::whereIn('user_id', $followingUsers->pluck('id'))
+        $posts = Post::whereIn('user_id', $followingUsers->pluck('id'))
             ->with('user')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -25,39 +25,49 @@ class FollowsController extends Controller
 
     public function followerList()
     {
-        $user = Auth::user();
+        $user = Auth::user()->fresh(); // 最新情報を取得
 
         $followers = $user->followers()->get();
 
         $posts = Post::whereIn('user_id', $followers->pluck('id'))
-        ->with('user')
-        ->orderBy('created_at', 'desc')
-        ->get();
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-    return view('follows.followerList', compact('followers', 'posts'));
+        return view('follows.followerList', compact('followers', 'posts'));
     }
 
     public function followingsPosts()
     {
-    $user = Auth::user();
+        $user = Auth::user()->fresh(); // 最新情報を取得
 
-    $posts = Post::whereIn('user_id', $user->following()->pluck('followed_id'))
-        ->with('user')
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $posts = Post::whereIn('user_id', $user->followings()->pluck('id'))
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-    return view('follows.followingsPosts', compact('posts'));
+        return view('follows.followingsPosts', compact('posts'));
     }
 
     public function follow(User $user)
     {
-    Auth::user()->followings()->attach($user->id);
-    return back();
+        $currentUser = Auth::user();
+
+        if (!$currentUser->isFollowing($user)) {
+            $currentUser->followings()->attach($user->id);
+        }
+
+        return back(); // 元のページへ戻る
     }
 
-public function unfollow(User $user)
+    public function unfollow(User $user)
     {
-    Auth::user()->followings()->detach($user->id);
-    return back();
+        $currentUser = Auth::user();
+
+        if ($currentUser->isFollowing($user)) {
+            $currentUser->followings()->detach($user->id);
+        }
+
+        return back(); // 元のページへ戻る
     }
 }

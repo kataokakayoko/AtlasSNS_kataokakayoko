@@ -1,13 +1,14 @@
 <x-login-layout>
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 <div id="main-post" style="display: flex;">
-  <!-- メインエリア -->
+
+  <!-- 投稿エリア -->
   <div class="main-post" style="flex: 1;">
     <div class="post-form-container">
       <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="post-form">
         @csrf
-        <div class="user-icon">
-          <img src="{{ asset('images/' . Auth::user()->image) }}" alt="ユーザーアイコン" />
+        <div class="user-icon post-user-icon">
+        <img src="{{ asset('images/' . Auth::user()->image) }}" alt="ユーザーアイコン" />
         </div>
         <textarea name="post" placeholder="投稿内容を入力してください。" class="post-input" required></textarea>
         <button type="submit" class="post-btn">
@@ -16,21 +17,23 @@
       </form>
     </div>
 
+  <!-- リストエリア -->
     <div class="post-list">
   @forelse ($posts as $post)
     <div class="post-item">
       <div class="post-header d-flex justify-content-between align-items-start mb-2">
         <div class="d-flex align-items-start gap-2">
-          <div class="user-icon">
-            <img src="{{ asset('images/' . ($post->user->image ?? 'default_icon.png')) }}" alt="{{ $post->user->username }}のアイコン" class="w-8 h-8 rounded-full" />
+        <div class="user-icon list-user-icon">
+          <img src="{{ asset('images/' . ($post->user->image ?? 'default_icon.png')) }}" alt="{{ $post->user->username }}のアイコン" />
           </div>
           <div class="post-info">
             <div class="post-username fw-bold">{{ $post->user->username }}</div>
           </div>
         </div>
-        <div class="text-muted" style="font-size: 0.8em;">{{ $post->created_at->format('Y-m-d H:i') }}</div>
+        <div class="post-date">
+        {{ $post->created_at->format('Y-m-d H:i') }}
+        </div>
       </div>
-
       <div class="post-post">{{ $post->post }}</div>
 
       @auth
@@ -79,20 +82,14 @@
                   @csrf
                   @method('DELETE')
                   <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel{{ $post->id }}">投稿の削除確認</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
                   </div>
                   <div class="modal-body">
                     この投稿を削除します。よろしいですか？
                   </div>
                   <div class="modal-footer">
-                  <button type="button"
-                  class="btn bg-white text-dark border border-dark" data-bs-dismiss="modal">
-                  キャンセル
-                  </button>
-                  <button type="submit" class="btn text-white" style="background-color: #66b0ff; border: none;">
-                  OK
-                  </button>
+                  <button type="submit" class="btn btn-primary btn-fixed-size">OK</button>
+                  <button type="button" class="btn btn-cancel btn-fixed-size" data-bs-dismiss="modal">キャンセル</button>
                   </div>
                 </form>
               </div>

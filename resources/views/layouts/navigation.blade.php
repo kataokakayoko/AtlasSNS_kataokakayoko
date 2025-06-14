@@ -14,18 +14,19 @@
     </div>
 
     <!-- アコーディオンメニュー -->
-    <nav class="menu">
-      <ul>
-        <li><a href="{{ route('top') }}">HOME</a></li>
-        <li><a href="{{ route('profile') }}">プロフィール編集</a></li>
-        <li>
-          <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit">ログアウト</button>
-          </form>
-        </li>
-      </ul>
-    </nav>
-  </div>
+  <nav class="menu">
+    <ul>
+      <li><a href="{{ route('top') }}">HOME</a></li>
+      <li><a href="{{ route('profile') }}">プロフィール編集</a></li>
+      <li>
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button type="submit">ログアウト</button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+
   @endauth
 </header>

@@ -24,9 +24,10 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'follows', 'followed_id', 'following_id')->withTimestamps();
     }
 
-    public function isFollowings(User $user)
+    public function isFollowing($user)
     {
-        return $this->followings()->where('followed_id', $user->id)->exists();
+    $userId = $user instanceof User ? $user->id : $user;
+    return $this->followings()->where('followed_id', $userId)->exists();
     }
 
     public function isFollowedBy(User $user)
@@ -44,8 +45,4 @@ class User extends Authenticatable
     return 'mail';
     }
 
-    public function username()
-    {
-    return 'mail';
-    }
 }

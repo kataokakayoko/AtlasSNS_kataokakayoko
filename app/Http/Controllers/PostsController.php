@@ -12,7 +12,6 @@ class PostsController extends Controller
 {
     $user = Auth::user();
 
-    // followings_count, followers_count を使う準備
     $user->loadCount('followings', 'followers');
 
     $posts = Post::with('user')->latest()->get();
@@ -54,15 +53,22 @@ class PostsController extends Controller
 
     return redirect()->route('top')->with('success', '投稿を編集しました！');
 }
-    public function destroy(Post $post)
+public function destroy(Post $post)
 {
-    if ($post->user_id !== auth()->id()) {
-        return redirect()->route('posts.index')->with('error', '権限がありません');
+    \Log::info('destroy called for post id: ' . $post->id);
+    \Log::info('Auth user id: ' . auth()->user()->email);
+    \Log::info('post->user_id: ' . $post->user_id);
+    \Log::info('auth()->user()->id: ' . auth()->user()->id);
+
+    if ($post->user_id !== auth()->user()->id) {
+        \Log::warning('Unauthorized delete attempt by user: ' . auth()->user()->email);
+        return redirect()->route('top')->with('error', '権限がありません');
     }
 
     $post->delete();
 
-    return redirect()->route('posts.index')->with('success', '投稿を削除しました！');
+    return redirect()->route('top')->with('success', '投稿を削除しました！');
 }
+
 
 }

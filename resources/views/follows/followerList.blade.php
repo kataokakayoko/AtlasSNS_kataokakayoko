@@ -24,21 +24,26 @@
   @if($posts->count() > 0)
   <ul class="post-list">
     @foreach ($posts as $post)
-      @if($post->user) {{-- ユーザー情報が存在するか確認 --}}
+      @if($post->user)
         <li class="post-item">
-          <a href="{{ route('user.profile', ['id' => $post->user->id]) }}">
-            <img src="{{ asset('images/' . ($post->user->image ?? 'default_icon.png')) }}"
-                 alt="{{ $post->user->username }}"
-                 class="rounded-circle"
-                 style="width: 40px; height: 40px; object-fit: cover;">
-          </a>
-          <div class="post-username">
-            <a href="{{ route('user.profile', ['id' => $post->user->id]) }}">
-              {{ $post->user->username }}
-            </a>
+          <div class="post-header d-flex justify-content-between align-items-start mb-2">
+            <div class="d-flex align-items-start gap-2">
+              <a href="{{ route('user.profile', ['id' => $post->user->id]) }}" class="user-link d-flex align-items-center gap-2" style="text-decoration: none; color: inherit;">
+                <div class="user-icon list-user-icon">
+                  <img src="{{ asset('images/' . ($post->user->image ?? 'default_icon.png')) }}"
+                       alt="{{ $post->user->username }}のアイコン"
+                       style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;" />
+                </div>
+                <div class="post-info">
+                  <div class="post-username fw-bold">{{ $post->user->username }}</div>
+                </div>
+              </a>
+            </div>
+            <div class="post-date">
+            {{ $post->created_at->format('Y-m-d H:i') }}
+            </div>
           </div>
-          <div class="post-text">{{ $post->post }}</div>
-          <div class="post-date">{{ $post->created_at->format('Y年m月d日 H:i') }}</div>
+          <div class="post-post">{{ $post->post }}</div>
         </li>
       @endif
     @endforeach
@@ -46,5 +51,6 @@
 @else
   <p class="no-posts">フォロワーの投稿はありません。</p>
 @endif
+
 
 </x-login-layout>
