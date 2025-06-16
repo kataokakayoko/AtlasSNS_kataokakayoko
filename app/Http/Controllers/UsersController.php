@@ -18,7 +18,7 @@ class UsersController extends Controller
         if ($keyword) {
             $query->where(function ($q) use ($keyword) {
                 $q->where('username', 'like', "%{$keyword}%")
-                  ->orWhere('mail', 'like', "%{$keyword}%");
+                  ->orWhere('email', 'like', "%{$keyword}%");
             });
         }
 
@@ -63,7 +63,7 @@ class UsersController extends Controller
     public function updateIcon(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|max:2048',
+            'icon_image' => 'required|image|max:2048',
         ]);
 
         $user = Auth::user();

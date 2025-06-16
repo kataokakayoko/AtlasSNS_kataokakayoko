@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable = ['username', 'mail', 'password'];
+    protected $fillable = ['username', 'email', 'password'];
     protected $hidden = ['password', 'remember_token'];
 
     public function followings()
@@ -42,7 +42,7 @@ class User extends Authenticatable
 
     public function getAuthIdentifierName()
     {
-    return 'mail';
+    return 'email';
     }
 
 }

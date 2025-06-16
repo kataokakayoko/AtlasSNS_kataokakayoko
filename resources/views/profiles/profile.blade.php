@@ -7,8 +7,8 @@
 
       <div class="profile-left">
         <div class="profile-image-wrapper">
-          @if(Auth::user()->image)
-            <img src="{{ asset('images/' . Auth::user()->image) }}" alt="アイコン" class="icon-image">
+          @if(Auth::user()->icon_image)
+            <img src="{{ asset('images/' . Auth::user()->icon_image) }}" alt="アイコン" class="icon-image">
           @else
             <div class="icon-placeholder"></div>
           @endif
@@ -22,8 +22,8 @@
         </div>
 
         <div class="form-row">
-          <label for="mail" class="label-text">メールアドレス</label>
-          <input id="mail" type="email" name="mail" value="{{ old('mail', Auth::user()->mail) }}" class="input-field">
+          <label for="email" class="label-text">メールアドレス</label>
+          <input id="email" type="email" name="email" value="{{ old('email', Auth::user()->email) }}" class="input-field">
         </div>
 
         <div class="form-row">
@@ -42,10 +42,10 @@
         </div>
 
         <div class="form-row">
-          <label for="image" class="label-text">アイコン画像</label>
+          <label for="icon_image" class="label-text">アイコン画像</label>
           <div class="icon-upload-box">
-            <label for="image" class="custom-file-label">ファイルを選択</label>
-            <input id="image" type="file" name="image" class="file-input">
+            <label for="icon_image" class="custom-file-label">ファイルを選択</label>
+            <input id="icon_image" type="file" name="icon_image" class="file-input">
           </div>
         </div>
 

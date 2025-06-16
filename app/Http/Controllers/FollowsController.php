@@ -11,7 +11,7 @@ class FollowsController extends Controller
 {
     public function followList()
     {
-        $user = Auth::user()->fresh(); // 最新情報を取得
+        $user = Auth::user()->fresh();
 
         $followingUsers = $user->followings()->get();
 
@@ -25,7 +25,7 @@ class FollowsController extends Controller
 
     public function followerList()
     {
-        $user = Auth::user()->fresh(); // 最新情報を取得
+        $user = Auth::user()->fresh();
 
         $followers = $user->followers()->get();
 
@@ -39,7 +39,7 @@ class FollowsController extends Controller
 
     public function followingsPosts()
     {
-        $user = Auth::user()->fresh(); // 最新情報を取得
+        $user = Auth::user()->fresh();
 
         $posts = Post::whereIn('user_id', $user->followings()->pluck('id'))
             ->with('user')
@@ -57,7 +57,7 @@ class FollowsController extends Controller
             $currentUser->followings()->attach($user->id);
         }
 
-        return back(); // 元のページへ戻る
+        return back();
     }
 
     public function unfollow(User $user)
@@ -68,6 +68,6 @@ class FollowsController extends Controller
             $currentUser->followings()->detach($user->id);
         }
 
-        return back(); // 元のページへ戻る
+        return back();
     }
 }

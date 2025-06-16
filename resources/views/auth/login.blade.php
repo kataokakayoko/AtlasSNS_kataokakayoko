@@ -19,8 +19,8 @@
  <p class="login-title">AtlasSNSへようこそ</p>
 
  <div class="input-group">
- {{ Form::label('mail', 'メールアドレス') }}
- {{ Form::text('mail', null, ['class' => 'input']) }}
+ {{ Form::label('email', 'メールアドレス') }}
+ {{ Form::text('email', null, ['class' => 'input']) }}
  </div>
 
  <div class="input-group">

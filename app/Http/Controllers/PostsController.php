@@ -10,6 +10,10 @@ class PostsController extends Controller
 {
     public function index()
 {
+    if (!Auth::check()) {
+        return redirect()->route('login')->withErrors(['auth' => 'ログインしてください。']);
+    }
+
     $user = Auth::user();
 
     $user->loadCount('followings', 'followers');

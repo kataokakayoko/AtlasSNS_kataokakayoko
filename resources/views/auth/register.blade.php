@@ -26,8 +26,8 @@
         </div>
 
         <div class="input-group">
-            {{ Form::label('mail', 'メールアドレス') }}
-            {{ Form::email('mail', null, ['class' => 'input']) }}
+            {{ Form::label('email', 'メールアドレス') }}
+            {{ Form::email('email', null, ['class' => 'input']) }}
         </div>
 
         <div class="input-group">
