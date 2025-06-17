@@ -27,33 +27,36 @@ Route::middleware('guest')->group(function () {
     Route::get('register-success', [RegisteredUserController::class, 'registerSuccess'])->name('register.success');
 });
 
-// ミドルウェアを適用
+// ミドルウェアを適用（ログインしていないユーザーをリダイレクトする）
 Route::middleware('auth')->group(function () {
     // トップページ
-    Route::get('/', [PostsController::class, 'index'])->name('top');
+    Route::get('/top', [PostsController::class, 'index'])->name('top');
 
-    // プロフィールページ
-    Route::get('/users/profile', [ProfileController::class, 'profile'])->name('profile');
+    // プロフィールページ（ログイン必須）
+    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 
-    // フォローリストページ
+    // フォローリストページ（ログイン必須）
     Route::get('/follows', [FollowsController::class, 'followList'])->name('follows.list');
-    // フォロー中ユーザーの投稿一覧
+
+    // フォロー中ユーザーの投稿一覧（ログイン必須）
     Route::get('/follows/posts', [FollowsController::class, 'followingPosts'])->name('follows.posts');
 
-    // フォロワーリストページ
+    // フォロワーリストページ（ログイン必須）
     Route::get('/followers', [FollowsController::class, 'followerList'])->name('followers.list');
 
-    // 相手ユーザーのプロフィールページ
+    // 相手ユーザーのプロフィールページ（ログイン必須）
     Route::get('/user/{id}', [UsersController::class, 'show'])->name('user.profile');
 
     // ログアウト処理
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-    // ユーザー検索ページ
-    Route::get('/users/search_result', [UsersController::class, 'search_result'])->name('users.search_result');
+    // ユーザー検索ページ（ログイン必須）
+    Route::get('/search', [UsersController::class, 'search_result'])->name('users.search_result');
+
+    // フォローリストページ（ログイン必須）
     Route::get('/follow-list', [UsersController::class, 'followList'])->name('follow.list');
 
-    // フォロー / フォロー解除
+    // フォロー / フォロー解除（ログイン必須）
     Route::post('/users/{user}/follow', [FollowsController::class, 'follow'])->name('users.follow');
     Route::post('/users/{user}/unfollow', [FollowsController::class, 'unfollow'])->name('users.unfollow');
 
@@ -70,5 +73,4 @@ Route::middleware('auth')->group(function () {
     // プロフィール編集関連
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-
 });

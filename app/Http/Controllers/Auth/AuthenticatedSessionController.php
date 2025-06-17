@@ -29,18 +29,21 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended('top');
         return redirect()->intended(route('top'));
     }
 
+    /**
+     * ログアウト処理
+     */
     public function destroy(Request $request)
     {
+        // ログアウト処理
         Auth::guard('web')->logout();
 
+        // セッションを無効化し、トークンを再生成
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect(route('top'));
     }
-
 }

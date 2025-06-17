@@ -11,7 +11,7 @@
       <span class="username">{{ Auth::user()->username }} さん</span>
       <span class="arrow"></span>
       @if(Auth::user()->icon_image)
-        <img src="{{ asset('images/' . Auth::user()->icon_image) }}" alt="アイコン" class="user-icon">
+        <img src="{{ asset('storage/images/' . basename(Auth::user()->icon_image)) }}" alt="アイコン" class="user-icon">
       @else
         <img src="{{ asset('images/default_icon.png') }}" alt="デフォルトアイコン" class="user-icon">
       @endif
