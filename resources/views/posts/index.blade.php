@@ -6,34 +6,31 @@
     <!-- 投稿エリア -->
     <div class="main-post" style="flex: 1;">
       <div class="post-form-container">
-        <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="post-form">
-          @csrf
+      <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="post-form">
+  @csrf
 
-          <div class="user-icon post-user-icon">
-            @if(Auth::user()->icon_image)
-              <img src="{{ asset('storage/images/' . basename(Auth::user()->icon_image)) }}" alt="ユーザーアイコン" />
-            @else
-              <img src="{{ asset('images/default_icon.png') }}" alt="デフォルトユーザーアイコン" />
-            @endif
-          </div>
+  <div class="user-icon post-user-icon">
+    @if(Auth::user()->icon_image)
+      <img src="{{ asset('storage/images/' . basename(Auth::user()->icon_image)) }}" alt="ユーザーアイコン" />
+    @else
+      <img src="{{ asset('images/default_icon.png') }}" alt="デフォルトユーザーアイコン" />
+    @endif
+  </div>
 
-          <textarea name="post" placeholder="投稿内容を入力してください。" class="post-input" required>
-          {{ session('edit_modal_id') ? '' : old('post') }}
-          </textarea>
+  <textarea name="post" placeholder="投稿内容を入力してください。" class="post-input" required>{{ session('edit_modal_id') ? '' : old('post') }}</textarea>
 
-          <!-- 投稿フォーム内のバリデーションエラーメッセージ -->
-          @if (!session('edit_modal_id') && !session('is_post_form'))
-          @error('post')
-          <div class="alert alert-danger mt-2">
-          {{ $message }}
-          </div>
-          @enderror
-          @endif
+  <!-- 投稿フォーム内のバリデーションエラーメッセージ -->
+  @if (session('is_post_form') && $errors->has('post'))
+    <div class="alert alert-danger mt-2">
+      {{ $errors->first('post') }}
+    </div>
+  @endif
 
-          <button type="submit" class="post-btn">
-            <img src="{{ asset('images/post.png') }}" alt="投稿" />
-          </button>
-        </form>
+  <button type="submit" class="post-btn">
+    <img src="{{ asset('images/post.png') }}" alt="投稿" />
+  </button>
+</form>
+
       </div>
     </div>
 

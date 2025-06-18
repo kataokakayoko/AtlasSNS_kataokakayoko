@@ -36,21 +36,23 @@
 
         <!-- パスワード -->
         <div class="form-row">
-          <label for="password" class="label-text">パスワード</label>
-          <input id="password" type="password" name="password" class="input-field">
-          @error('password')
-            <div class="alert alert-danger">{{ $message }}</div>
-          @enderror
+        <label for="password" class="label-text">パスワード</label>
+        <input id="password" type="password" name="password" class="input-field" required>
+        @error('password')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         </div>
 
         <!-- パスワード確認 -->
         <div class="form-row">
-          <label for="password_confirmation" class="label-text">パスワード確認</label>
-          <input id="password_confirmation" type="password" name="password_confirmation" class="input-field">
-          @error('password_confirmation')
-            <div class="alert alert-danger">{{ $message }}</div>
-          @enderror
+        <label for="password_confirmation" class="label-text">パスワード確認</label>
+        <input id="password_confirmation" type="password" name="password_confirmation" class="input-field" required>
+        @error('password_confirmation')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         </div>
+
+
 
         <!-- 自己紹介 -->
         <div class="form-row textarea-row">

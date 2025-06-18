@@ -50,11 +50,12 @@ class ProfileController extends Controller
     $validatedData = $request->validate([
         'username' => ['required', 'string', 'min:2', 'max:12'],
         'email' => ['required', 'email', 'min:5', 'max:40', 'unique:users,email,' . $user->id],
-        'password' => ['nullable', 'string', 'min:8', 'max:20', 'regex:/^[a-zA-Z0-9]+$/'],
-        'password_confirmation' => ['nullable', 'same:password'],
+        'password' => ['required', 'string', 'min:8', 'max:20', 'regex:/^[a-zA-Z0-9]+$/'],
+        'password_confirmation' => ['required', 'same:password'],
         'profile' => ['nullable', 'string', 'max:150'],
         'icon_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,bmp,gif,svg', 'max:2048'],
     ], $messages);
+
 
     $user->username = $request->input('username');
     $user->email = $request->input('email');
